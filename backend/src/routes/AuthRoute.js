@@ -1,5 +1,13 @@
-const {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} = require("firebase/auth")
-const { getFirestore, getDocs, collection } = require('firebase/firestore');
+import {collection, getDocs, getFirestore} from "firebase/firestore"
+
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth"
+
+
+
+import {isLogged} from "../middleware/session.js"
+
+import {getAuth as getAdminAuth} from "firebase-admin/auth"
+
 /**
  * AuthRoute
  * @param {Express} app
@@ -7,6 +15,7 @@ const { getFirestore, getDocs, collection } = require('firebase/firestore');
  */
 const AuthRoute = ({app, firebase}) => {
     const auth = getAuth(firebase)
+    const adminAuth = getAdminAuth()
 
     app.post("/api/sign-in", async (req, res) => {
         const {email, password} = req.body
@@ -14,7 +23,8 @@ const AuthRoute = ({app, firebase}) => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             const {user} = userCredential
             const token = await user.getIdToken()
-            res.json({token})
+            res.cookie('Authorization', token)
+            res.send('Sign in successful')
         } catch (error) {
             console.log(error)
             res.status(400).json({message: "Invalid credentials"})
@@ -36,9 +46,13 @@ const AuthRoute = ({app, firebase}) => {
         const {email, password} = req.body
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-            const {user} = userCredential
+            const { user} = userCredential
+
+            await getAdminAuth().setCustomUserClaims(user.uid, { roles: ['member'] })
+            await user.getIdToken(true)
             const token = await user.getIdToken()
-            res.json({token})
+            res.cookie('Authorization', token)
+            res.send('Sign up successful')
         } catch (error) {
             switch (error.code) {
                 case 'auth/email-already-in-use':
@@ -54,6 +68,14 @@ const AuthRoute = ({app, firebase}) => {
             }
         }
     })
+
+    app.get('/api/users', isLogged, async (req, res) => {
+        const db = getFirestore(firebase)
+        const usersRef = collection(db, 'users');
+        const usersSnapshot = await getDocs(usersRef);
+        const usersList = usersSnapshot.docs.map(doc => doc.data());
+        res.json(usersList)
+    })
 }
 
-module.exports = AuthRoute
+export default AuthRoute
