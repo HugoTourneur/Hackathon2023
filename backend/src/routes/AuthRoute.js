@@ -1,21 +1,16 @@
-import {collection, getDocs, getFirestore} from "firebase/firestore"
-
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth"
 
-
-
-import {isLogged} from "../middleware/session.js"
 
 import {getAuth as getAdminAuth} from "firebase-admin/auth"
 
 /**
- * AuthRoute
+ * Endpoints for authentication
+ *
  * @param {Express} app
  * @param {FirebaseApp} firebase
  */
 const AuthRoute = ({app, firebase}) => {
     const auth = getAuth(firebase)
-    const adminAuth = getAdminAuth()
 
     app.post("/api/sign-in", async (req, res) => {
         const {email, password} = req.body
@@ -68,8 +63,6 @@ const AuthRoute = ({app, firebase}) => {
             }
         }
     })
-
-    
 }
 
 export default AuthRoute

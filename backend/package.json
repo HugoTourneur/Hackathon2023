@@ -15,6 +15,8 @@
     "firebase-admin": "^11.9.0",
     "jsonwebtoken": "^9.0.0",
     "nodemon": "^2.0.22",
+    "pino": "^8.14.1",
+    "pino-pretty": "^10.0.0",
     "prettier": "^2.8.8"
   },
   "type": "module",
