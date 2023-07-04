@@ -6,7 +6,9 @@ export const isLogged = async (req, res, next) => {
     try {
         const token = req.cookies['Authorization']
 
-        await auth.verifyIdToken(token, true)
+        const { uid } = await auth.verifyIdToken(token, true)
+
+        req.user = uid
 
     } catch(err) {
         switch(err.code) {
