@@ -69,13 +69,7 @@ const AuthRoute = ({app, firebase}) => {
         }
     })
 
-    app.get('/api/users', isLogged, async (req, res) => {
-        const db = getFirestore(firebase)
-        const usersRef = collection(db, 'users');
-        const usersSnapshot = await getDocs(usersRef);
-        const usersList = usersSnapshot.docs.map(doc => doc.data());
-        res.json(usersList)
-    })
+    
 }
 
 export default AuthRoute
