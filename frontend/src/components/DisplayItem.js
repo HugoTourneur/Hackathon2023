@@ -57,6 +57,7 @@ const DisplayItem = ({ title, location, value, date, image, id }) => {
               src="https://upload.wikimedia.org/wikipedia/commons/0/05/Ethereum_logo_2014.svg"
               width={500}
               height={500}
+              alt="ETH SVG"
               className="w-4"
             />
             <p>{`${new Intl.NumberFormat("fr-FR", {
