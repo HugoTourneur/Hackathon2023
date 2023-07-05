@@ -1,11 +1,22 @@
+import axios from "axios"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
 const LoginForm = () => {
   const { register, handleSubmit } = useForm()
-  const onSubmit = useCallback(async (d) => {
-    alert(JSON.stringify(d))
-    //window.location.pathname = "/"
+  const onSubmit = useCallback(async (values) => {
+    const {email, password} = values
+    try {
+      const {data} = await axios.post(
+        "http://localhost:3001/api/sign-in",
+        { email: email, password: password }
+      )
+      console.log(data)
+      window.location.pathname = "/"
+     }
+    catch (err) {
+      console.log("error register : " + err)
+    }
   })
 
   return (
@@ -17,7 +28,7 @@ const LoginForm = () => {
         </label>
         <label className="flex flex-col">
           password
-          <input {...register("password")} className="border-2"/>
+          <input {...register("password")} type="password" className="border-2"/>
         </label>
         <input type="submit" value="Login" className="bg-blue-500"/>
         </form>
