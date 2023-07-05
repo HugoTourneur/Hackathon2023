@@ -19,8 +19,8 @@ const Layout = ({ children, isAuthenticated }) => {
               <button onClick={handleClick}>Sign-out</button>
             ) : (
               <>
-                <Link href="/sign-in">Sign-in</Link>
-                <Link href="/sign-up">Sign-up</Link>
+                <Link href="/login">Sign-in</Link>
+                <Link href="/register">Sign-up</Link>
               </>
             )}
           </ul>
