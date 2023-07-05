@@ -14,7 +14,9 @@ const EstateRoute = ({app, firebase}) => {
     app.get("/api/estates", async (req, res) => {
         try {
             const estates = await getDocs(collection(db, 'estates'))
-            const data = estates.docs.map(doc => doc.data())
+            const data = estates.docs.map(doc => {
+                return {id: doc.id, ...doc.data()}
+            })
             res.json(data)
         } catch (error) {
             console.log(error)
