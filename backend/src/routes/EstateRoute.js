@@ -28,10 +28,16 @@ const EstateRoute = ({app, firebase}) => {
         const id = req.params.id
         try {
             const estate = await getDoc(doc(db, 'estates', id))
+
+            const queryNbParts = query(collection(db, 'parts'), where('estate_id', '==', id))
+            const parts = await getDocs(queryNbParts)
+
             if (!estate.exists()) {
                 return res.status(404).json({message: "Estate not found"})
             }
-            res.json(estate.data())
+
+            console.log(parts)
+            res.json({id: estate.id, ...estate.data(), parts_left: estate.data().max_shares -  parts.docs.map(p => p.data().parts).reduce((previousValue, currentValue) => previousValue + currentValue), single_value: estate.data().value / estate.data().max_shares})
         } catch (error) {
             console.log(error)
             res.status(400).json({message: "An error occurred"})
