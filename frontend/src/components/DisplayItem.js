@@ -18,7 +18,7 @@ const DisplayItem = ({ title, location, value, date, image, id }) => {
 
   return (
     <button onClick={() => handleClick(id)}>
-      <div className="p-4 rounded-3xl w-fit grid gap-2 shadow-lg shadow-[#B6A6CA] hover:scale-105 hover:shadow-[#A09ABC] transition duration-300 text-left">
+      <div className="p-4 rounded-3xl w-fit grid gap-4 shadow-lg shadow-[#B6A6CA] hover:scale-105 hover:shadow-[#A09ABC] transition duration-300 text-left">
         <Image
           src={image}
           alt="propriété"
@@ -29,7 +29,7 @@ const DisplayItem = ({ title, location, value, date, image, id }) => {
           className="rounded-xl w-50 h-60"
         ></Image>
         <div>
-          <h2 className="text-xl font-bold mb-2">{title}</h2>
+          <h2 className="text-xl font-bold">{title}</h2>
 
           <div className="flex gap-2 items-center">
             <MapPinIcon className="w-4" />
