@@ -97,6 +97,29 @@ const EstateRoute = ({app, firebase}) => {
             res.status(400).json({message: "An error occurred"})
         }
     })
+
+    app.get("/api/estates/user", isLogged, async (req, res) => {
+        const { user } = req.user
+
+        try {
+            const partsQuery = await query(collection(db, 'parts'),
+                where('user_id', '==', user)
+            )
+
+            const parts = await getDocs(partsQuery)
+
+            const estatesQuery = await query(collection(db, 'estates'),
+                where('id', 'in', parts.docs.map(doc => doc.data().estate_id))
+            )
+
+            const estates = await getDocs(estatesQuery)
+
+            res.json(estates.docs.map(doc => doc.data()))
+        } catch (error) {
+            console.log(error)
+            res.status(400).json({message: "An error occurred"})
+        }
+    })
 }
 
 export default EstateRoute
