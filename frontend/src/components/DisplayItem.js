@@ -7,6 +7,8 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/outline"
 
+import { PiCurrencyEth } from "react-icons/pi"
+
 const DisplayItem = ({ title, location, value, date, image, id }) => {
   const router = useRouter()
 
@@ -53,13 +55,7 @@ const DisplayItem = ({ title, location, value, date, image, id }) => {
           </div>
 
           <div className="flex gap-2 items-center">
-            <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/0/05/Ethereum_logo_2014.svg"
-              width={500}
-              height={500}
-              alt="ETH SVG"
-              className="w-4"
-            />
+            <PiCurrencyEth className="w-4 h-4" />
             <p>{`${new Intl.NumberFormat("fr-FR", {
               style: "currency",
               currency: "ETH",
