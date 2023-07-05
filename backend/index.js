@@ -3,6 +3,8 @@ import cookieParser from "cookie-parser"
 import 'dotenv/config'
 import config from "./src/config.js"
 
+import cors from "cors"
+
 import swaggerAutogen from 'swagger-autogen';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJson from './src/utils/swagger/swagger-output.json' assert { type: "json" };
@@ -30,6 +32,7 @@ swaggerAutogen(outputFile, endpointsFiles, doc);
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
 app.use('/api-docs', swaggerUi.serve);
 app.get('/api-docs', swaggerUi.setup(swaggerJson));
 
@@ -42,5 +45,5 @@ const firebase = getFirebase()
 AuthRoute({app, firebase})
 EstateRoute({app, firebase})
 app.listen(config.port, () => {
-  console.log('Server listening on port 3000');
+  console.log('Server listening on port ' + config.port)
 })
