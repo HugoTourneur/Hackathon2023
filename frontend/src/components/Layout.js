@@ -26,7 +26,7 @@ const Layout = ({ children, isAuthenticated }) => {
           </ul>
         </nav>
       </div>
-      <div className="max-w-5xl mx-auto mt-4">{children}</div>
+      <div className="max-w-5xl mx-auto my-8">{children}</div>
     </div>
   )
 }
