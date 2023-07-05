@@ -11,7 +11,7 @@ const DisplayItem = ({ title, location, value, date, image, id }) => {
   const router = useRouter()
 
   const handleClick = (id) => {
-    router.push(`/item/${id}`)
+    router.push(`/estates/${id}`)
   }
 
   return (
