@@ -52,6 +52,19 @@ const DisplayItem = ({ title, location, value, date, image, id }) => {
             }).format(value)} à collecter`}</p>
           </div>
 
+          <div className="flex gap-2 items-center">
+            <Image
+              src="https://upload.wikimedia.org/wikipedia/commons/0/05/Ethereum_logo_2014.svg"
+              width={500}
+              height={500}
+              className="w-4"
+            />
+            <p>{`${new Intl.NumberFormat("fr-FR", {
+              style: "currency",
+              currency: "ETH",
+            }).format(value * 0.00056)} à collecter`}</p>
+          </div>
+
           <div className="flex gap-2 mt-8 justify-center items bg-[#B6A6CA] px-4 py-2 rounded-xl">
             <p className="text-center text-black font-medium">VOIR DÉTAILS</p>
             <ChevronDoubleRightIcon className="w-4 text-black" />
