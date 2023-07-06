@@ -30,6 +30,11 @@ const Estate = (props) => {
   const [estate, setEstate] = useState(null)
   const [estateError, setEstateError] = useState(false)
   const [partValue, setPartValue] = useState(1)
+  const [cookieStore, setCookieStore] = useState(null)
+
+  useEffect(() => {
+    setCookieStore(document.cookie)
+  })
 
   useEffect(() => {
     ;(async () => {
@@ -59,7 +64,7 @@ const Estate = (props) => {
     </div>
   ) : (
     estate && (
-      <Layout>
+      <Layout isAuthenticated={cookieStore}>
         <div className="w-full grid grid-cols-2 gap-8 shadow-lg shadow-[#B6A6CA] p-4 rounded-3xl">
           <div className="flex flex-col justify-between gap-10">
             <div className="flex flex-col gap-4">
