@@ -1,15 +1,14 @@
 import Link from "next/link"
-import { HomeModernIcon } from "@heroicons/react/24/outline"
 import { useRouter } from "next/router"
 import Image from "next/image"
-import axios from "axios"
+import api from "@/utils/api"
 
 const Layout = ({ children, isAuthenticated }) => {
   const router = useRouter()
 
   const handleClick = async () => {
     try {
-      await axios.get("http://localhost:3001/api/sign-out")
+      await api.get("/sign-out")
       router.push("/estates")
     } catch (error) {
       return

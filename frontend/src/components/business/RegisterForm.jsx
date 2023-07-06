@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from "@/utils/api"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
@@ -7,7 +7,7 @@ const RegisterForm = () => {
   const onSubmit = useCallback(async (values) => {
     const { email, password } = values
     try {
-      const { data } = await axios.post("http://localhost:3001/api/sign-up", {
+      const { data } = await api.post("/sign-up", {
         email: email,
         password: password,
       })

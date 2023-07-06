@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from "@/utils/api"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
@@ -7,14 +7,10 @@ const LoginForm = () => {
   const onSubmit = useCallback(async (values) => {
     const { email, password } = values
     try {
-      const { data } = await axios.post(
-        "http://localhost:3001/api/sign-in",
-        {
-          email: email,
-          password: password,
-        },
-        { withCredentials: true }
-      )
+      const { data } = await api.post("/sign-in", {
+        email: email,
+        password: password,
+      })
       console.log(data)
       window.location.pathname = "/"
     } catch (err) {
