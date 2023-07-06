@@ -10,7 +10,9 @@ import {
   ArrowTrendingUpIcon,
 } from "@heroicons/react/24/outline"
 import { PiCurrencyEth } from "react-icons/pi"
+import { BsBricks } from "react-icons/bs"
 import { useRouter } from "next/router"
+import Select from "@/components/Select"
 
 export const getServerSideProps = async ({ params }) => {
   return {
@@ -27,6 +29,7 @@ const Estate = (props) => {
 
   const [estate, setEstate] = useState(null)
   const [estateError, setEstateError] = useState(false)
+  const [partValue, setPartValue] = useState(1)
 
   useEffect(() => {
     ;(async () => {
@@ -44,11 +47,10 @@ const Estate = (props) => {
   }, [])
 
   const handleClick = async () => {
-    // hihi
     try {
       await axios.post(
         `http://localhost:3001/api/estates/${estateId}/buy-parts`,
-        { parts: 10 }
+        { parts: partValue }
       )
     } catch (error) {
       router.push("/sign-in")
@@ -107,18 +109,44 @@ const Estate = (props) => {
                     currency: "ETH",
                   }).format(estate.value * 0.00056)} à collecter`}</p>
                 </div>
+
+                <div className="flex gap-2 items-center">
+                  <BsBricks className="w-4 h-4" />
+                  <p>{`${estate.parts_left} ${
+                    estate.parts_left > 1 ? "parts restantes" : "part restante"
+                  }`}</p>
+                </div>
               </div>
             </div>
 
-            <div>
-              <button
-                className="flex gap-2 justify-center items-center bg-[#B6A6CA] px-4 py-2 rounded-xl w-full"
-                onClick={handleClick}
-              >
-                <span className="text-black font-medium">INVESTIR</span>
-                <ArrowTrendingUpIcon className="w-4 text-black" />
-              </button>
-            </div>
+            {estate.parts_left > 0 && (
+              <div className="flex flex-col gap-2">
+                <p>
+                  {`${partValue} ${
+                    partValue > 1 ? "parts" : "part"
+                  } = ${new Intl.NumberFormat("fr-FR", {
+                    style: "currency",
+                    currency: "EUR",
+                  }).format(
+                    estate.single_value * partValue
+                  )} / ${new Intl.NumberFormat("fr-FR", {
+                    style: "currency",
+                    currency: "ETH",
+                  }).format(estate.single_value * partValue * 0.00056)}`}
+                </p>
+
+                <div className="flex gap-2">
+                  <Select max={estate.parts_left} setPartValue={setPartValue} />
+                  <button
+                    className="flex gap-2 justify-center items-center bg-[#B6A6CA] px-4 py-2 rounded-xl w-full"
+                    onClick={handleClick}
+                  >
+                    <span className="text-black font-medium">INVESTIR</span>
+                    <ArrowTrendingUpIcon className="w-4 text-black" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
