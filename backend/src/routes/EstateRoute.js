@@ -37,7 +37,7 @@ const EstateRoute = ({app, firebase}) => {
             }
 
             console.log(parts)
-            res.json({id: estate.id, ...estate.data(), parts_left: estate.data().max_shares -  parts.docs.map(p => p.data().parts).reduce((previousValue, currentValue) => previousValue + currentValue), single_value: estate.data().value / estate.data().max_shares})
+            res.json({id: estate.id, ...estate.data(), parts_left: estate.data().max_shares -  (parts.docs.length > 0 ? parts.docs.map(p => p.data().parts).reduce((previousValue, currentValue) => previousValue + currentValue) : 0), single_value: estate.data().value / estate.data().max_shares})
         } catch (error) {
             console.log(error)
             res.status(400).json({message: "An error occurred"})
