@@ -1,6 +1,6 @@
 import DisplayItem from "@/components/DisplayItem"
 import Layout from "@/components/Layout"
-import axios from "axios"
+import api from "@/utils/api"
 import { useEffect, useState } from "react"
 
 const Estates = () => {
@@ -9,7 +9,7 @@ const Estates = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/api/estates")
+        const { data } = await api.get("/estates")
         setProducts(data)
       } catch (error) {
         console.log(error)

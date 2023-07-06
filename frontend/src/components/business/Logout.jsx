@@ -1,18 +1,15 @@
-import axios from "axios";
-import { useCallback } from "react";
+import api from "@/utils/api"
+import { useCallback } from "react"
 
 const Logout = () => {
-
   const onLogout = useCallback(async () => {
     try {
-      console.log("hello");
-     const {data} = await axios.get(
-        "http://localhost:3001/api/sign-out"
-      )
+      console.log("hello")
+      const { data } = await api.get("/sign-out")
       console.log(data)
       window.location.pathname = "/"
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   })
 

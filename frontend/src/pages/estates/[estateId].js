@@ -1,6 +1,5 @@
 import DisplayItem from "@/components/DisplayItem"
 import Layout from "@/components/Layout"
-import axios from "axios"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import {
@@ -13,6 +12,7 @@ import { PiCurrencyEth } from "react-icons/pi"
 import { BsBricks } from "react-icons/bs"
 import { useRouter } from "next/router"
 import Select from "@/components/Select"
+import api from "@/utils/api"
 
 export const getServerSideProps = async ({ params }) => {
   return {
@@ -34,9 +34,7 @@ const Estate = (props) => {
   useEffect(() => {
     ;(async () => {
       try {
-        const { data } =
-          estateId &&
-          (await axios.get(`http://localhost:3001/api/estates/${estateId}`))
+        const { data } = estateId && (await api.get(`/estates/${estateId}`))
 
         console.log(data)
         setEstate(data)
@@ -48,10 +46,7 @@ const Estate = (props) => {
 
   const handleClick = async () => {
     try {
-      await axios.post(
-        `http://localhost:3001/api/estates/${estateId}/buy-parts`,
-        { parts: partValue }
-      )
+      await api.post(`/estates/${estateId}/buy-parts`, { parts: partValue })
     } catch (error) {
       router.push("/login")
     }
