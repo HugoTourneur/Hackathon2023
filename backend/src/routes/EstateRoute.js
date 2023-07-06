@@ -138,7 +138,7 @@ const EstateRoute = ({ app, firebase }) => {
 
       if (user_part.size > 0) {
         console.log(user_part.docs);
-        await updateDoc(doc(db, "parts", user_part.docs[0].id), { parts });
+        await updateDoc(doc(db, "parts", user_part.docs[0].id), { parts: user_part.docs[0].data().parts + parts });
         return res.json({ message: "Parts updated" });
       }
 

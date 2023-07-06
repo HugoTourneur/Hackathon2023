@@ -46,7 +46,8 @@ const AuthRoute = ({app, firebase}) => {
             await getAdminAuth().setCustomUserClaims(user.uid, { roles: ['member'] })
             await user.getIdToken(true)
             const token = await user.getIdToken()
-            res.cookie('Authorization', token)
+            const { exp } = await getAdminAuth().verifyIdToken(token)
+            res.cookie('Authorization', token, { maxAge: exp, httpOnly: true, secure: true })
             res.send('Sign up successful')
         } catch (error) {
             switch (error.code) {

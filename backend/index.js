@@ -36,6 +36,7 @@ const endpointsFiles = [
 swaggerAutogen(outputFile, endpointsFiles, doc);
 
 const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
