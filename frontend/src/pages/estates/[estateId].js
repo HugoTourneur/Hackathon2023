@@ -47,6 +47,7 @@ const Estate = (props) => {
   const handleClick = async () => {
     try {
       await api.post(`/estates/${estateId}/buy-parts`, { parts: partValue })
+      router.reload()
     } catch (error) {
       router.push("/login")
     }
