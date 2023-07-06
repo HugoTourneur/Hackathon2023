@@ -33,7 +33,6 @@ const Estates = () => {
             />
           ))}
       </div>
-      <h1>HELLO</h1>
     </Layout>
   )
 }
