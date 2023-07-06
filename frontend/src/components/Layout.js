@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { HomeModernIcon } from "@heroicons/react/24/outline"
+import { useRouter } from "next/router"
 
 const Layout = ({ children, isAuthenticated }) => {
   const handleClick = () => {
@@ -10,10 +11,13 @@ const Layout = ({ children, isAuthenticated }) => {
     <div>
       <div className="bg-[#B6A6CA]">
         <nav className="flex justify-between max-w-5xl mx-auto py-4 ">
-          <div className="flex items-center gap-2">
-            <HomeModernIcon className="w-6" />
-            <span>Jed'Immo</span>
-          </div>
+          <Link href={"/"}>
+            <div className="flex items-center gap-2">
+              <HomeModernIcon className="w-6" />
+              <span>Jed'Immo</span>
+            </div>
+          </Link>
+
           <ul className="flex gap-4">
             {isAuthenticated ? (
               <button onClick={handleClick}>Sign-out</button>
@@ -26,7 +30,7 @@ const Layout = ({ children, isAuthenticated }) => {
           </ul>
         </nav>
       </div>
-      <div className="max-w-5xl mx-auto mt-4">{children}</div>
+      <div className="max-w-5xl mx-auto my-8">{children}</div>
     </div>
   )
 }
