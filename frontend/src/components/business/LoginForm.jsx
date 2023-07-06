@@ -7,10 +7,14 @@ const LoginForm = () => {
   const onSubmit = useCallback(async (values) => {
     const { email, password } = values
     try {
-      const { data } = await axios.post("http://localhost:3001/api/sign-in", {
-        email: email,
-        password: password,
-      })
+      const { data } = await axios.post(
+        "http://localhost:3001/api/sign-in",
+        {
+          email: email,
+          password: password,
+        },
+        { withCredentials: true }
+      )
       console.log(data)
       window.location.pathname = "/"
     } catch (err) {
