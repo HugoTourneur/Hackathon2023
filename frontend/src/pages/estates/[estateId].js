@@ -53,7 +53,7 @@ const Estate = (props) => {
         { parts: partValue }
       )
     } catch (error) {
-      router.push("/sign-in")
+      router.push("/login")
     }
   }
 
@@ -65,7 +65,7 @@ const Estate = (props) => {
     estate && (
       <Layout>
         <div className="w-full grid grid-cols-2 gap-8 shadow-lg shadow-[#B6A6CA] p-4 rounded-3xl">
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-between gap-10">
             <div className="flex flex-col gap-4">
               <Image
                 src={estate.image}
