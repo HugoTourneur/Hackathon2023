@@ -11,7 +11,7 @@ const Layout = ({ children, isAuthenticated }) => {
     <div>
       <div className="bg-[#B6A6CA]">
         <nav className="flex justify-between max-w-5xl mx-auto py-4 ">
-          <Link href={"/"}>
+          <Link href={"/estates"}>
             <div className="flex items-center gap-2">
               <HomeModernIcon className="w-6" />
               <span>Jed'Immo</span>
