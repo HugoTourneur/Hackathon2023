@@ -12,7 +12,7 @@ const RegisterForm = () => {
         password: password,
       })
       console.log(data)
-      window.location.pathname = "/"
+      window.location.pathname = "/estates"
     } catch (err) {
       console.log("error register : " + err)
     }
