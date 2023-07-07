@@ -1,4 +1,3 @@
-import DisplayItem from "@/components/DisplayItem"
 import Layout from "@/components/Layout"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -7,22 +6,29 @@ import {
   CalendarIcon,
   MapPinIcon,
   ArrowTrendingUpIcon,
+  ArrowLeftIcon,
 } from "@heroicons/react/24/outline"
 import { PiCurrencyEth } from "react-icons/pi"
 import { BsBricks } from "react-icons/bs"
 import { useRouter } from "next/router"
 import Select from "@/components/Select"
 import api from "@/utils/api"
+import Cookies from "cookies"
+import Link from "next/link"
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params, req, res }) => {
+  const cookieStore = new Cookies(req, res)
+  const cookie = cookieStore.get("Authorization")
+
   return {
-    props: { params },
+    props: { params, cookie: cookie || null },
   }
 }
 
 const Estate = (props) => {
   const {
     params: { estateId },
+    cookie,
   } = props
 
   const router = useRouter()
@@ -30,18 +36,12 @@ const Estate = (props) => {
   const [estate, setEstate] = useState(null)
   const [estateError, setEstateError] = useState(false)
   const [partValue, setPartValue] = useState(1)
-  const [cookieStore, setCookieStore] = useState(null)
-
-  useEffect(() => {
-    setCookieStore(document.cookie)
-  })
 
   useEffect(() => {
     ;(async () => {
       try {
         const { data } = estateId && (await api.get(`/estates/${estateId}`))
 
-        console.log(data)
         setEstate(data)
       } catch (error) {
         setEstateError(error)
@@ -59,12 +59,20 @@ const Estate = (props) => {
   }
 
   return estateError ? (
-    <div className="grid place-items-center h-screen">
+    <div className="flex flex-col gap-4 items-center justify-center h-screen">
       <p className="text-3xl font-semibold">{`${estateError.response.status}: ${estateError.response.data.message}`}</p>
+
+      <Link
+        href="/estates"
+        className="font-semibold bg-[#B6A6CA] px-4 py-2 rounded-xl flex gap-2"
+      >
+        <ArrowLeftIcon className="w-4 " />
+        <span>GO BACK</span>
+      </Link>
     </div>
   ) : (
     estate && (
-      <Layout isAuthenticated={cookieStore}>
+      <Layout isAuthenticated={cookie}>
         <div className="w-full grid grid-cols-2 gap-8 shadow-lg shadow-[#B6A6CA] p-4 rounded-3xl">
           <div className="flex flex-col justify-between gap-10">
             <div className="flex flex-col gap-4">

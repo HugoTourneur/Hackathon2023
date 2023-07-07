@@ -12,6 +12,7 @@
     "@heroicons/react": "^2.0.18",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "cookies": "^0.8.0",
     "eslint": "^8.44.0",
     "eslint-config-next": "13.4.7",
     "eslint-config-prettier": "^8.8.0",
@@ -25,6 +26,7 @@
     "tailwindcss": "3.3.2"
   },
   "devDependencies": {
+    "@types/cookies": "^0.7.7",
     "swagger-autogen": "^2.23.4"
   }
 }

@@ -1,16 +1,22 @@
 import DisplayItem from "@/components/DisplayItem"
 import Layout from "@/components/Layout"
 import api from "@/utils/api"
-import { cookies } from "next/dist/client/components/headers"
+import Cookies from "cookies"
 import { useEffect, useState } from "react"
 
-const Estates = () => {
-  const [products, setProducts] = useState(null)
-  const [cookieStore, setCookieStore] = useState(null)
+export const getServerSideProps = async ({ req, res }) => {
+  const cookieStore = new Cookies(req, res)
+  const cookie = cookieStore.get("Authorization")
 
-  useEffect(() => {
-    setCookieStore(document.cookie)
-  })
+  return {
+    props: { cookie: cookie || null },
+  }
+}
+
+const Estates = (props) => {
+  const { cookie } = props
+
+  const [products, setProducts] = useState(null)
 
   useEffect(() => {
     ;(async () => {
@@ -24,7 +30,7 @@ const Estates = () => {
   }, [])
 
   return (
-    <Layout isAuthenticated={cookieStore}>
+    <Layout isAuthenticated={cookie || false}>
       <div className="grid grid-cols-3 gap-8">
         {products &&
           products.map((product) => (
