@@ -29,6 +29,7 @@ const AuthRoute = ({app, firebase}) => {
     app.get("/api/sign-out", async (req, res) => {
         try {
             await auth.signOut()
+            res.clearCookie('Authorization')
             res.json({message: "Sign out successful"})
 
         } catch (error) {

@@ -11,6 +11,7 @@ export const isLogged = async (req, res, next) => {
         req.user = uid
 
     } catch(err) {
+        res.clearCookie('Authorization')
         switch(err.code) {
             case 'auth/id-token-expired':
                 return res.status(401).json({message: "Token expired"})
