@@ -71,7 +71,7 @@ const EstateRoute = ({ app, firebase }) => {
   });
 
   app.post("/api/estates", async (req, res) => {
-    const { title, location, value, type, max_shares, status, image } =
+    const { title, location, value, type, max_shares, status, image, date } =
       req.body;
     try {
       const docRef = await addDoc(collection(db, "estates"), {
@@ -82,6 +82,7 @@ const EstateRoute = ({ app, firebase }) => {
         max_shares,
         status,
         image,
+        date
       });
       res.json({ id: docRef.id });
     } catch (error) {
@@ -91,7 +92,7 @@ const EstateRoute = ({ app, firebase }) => {
   });
 
   app.put("/api/estates/:id", async (req, res) => {
-    const { title, location, value, type, max_shares, status, image } =
+    const { title, location, value, type, max_shares, status, image, date } =
       req.body;
     const { id } = req.params;
     try {
@@ -103,6 +104,7 @@ const EstateRoute = ({ app, firebase }) => {
         max_shares,
         status,
         image,
+        date
       });
       res.json({ id });
     } catch (error) {

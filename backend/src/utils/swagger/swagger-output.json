@@ -122,6 +122,9 @@
                 },
                 "image": {
                   "example": "any"
+                },
+                "date": {
+                  "example": "any"
                 }
               }
             }
@@ -194,6 +197,9 @@
                   "example": "any"
                 },
                 "image": {
+                  "example": "any"
+                },
+                "date": {
                   "example": "any"
                 }
               }
