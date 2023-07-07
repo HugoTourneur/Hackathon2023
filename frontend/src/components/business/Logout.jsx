@@ -7,7 +7,7 @@ const Logout = () => {
       console.log("hello")
       const { data } = await api.get("/sign-out")
       console.log(data)
-      window.location.pathname = "/"
+      window.location.pathname = "/estates"
     } catch (err) {
       console.log(err)
     }
